@@ -65,6 +65,7 @@ fun main() {
     // Try to place gnomes off the steps
     steps.placeGnome(6, amy)    // Should do nothing
     steps.show()
+    println("------------------------")
     steps.placeGnome(0, amy)    // Should do nothing
     steps.show()
 
@@ -105,13 +106,13 @@ fun main() {
     // Try to place a gnome that is already on steps
     steps.placeGnome(3, jim)    // Should place it ok
     steps.show()
-
+    println("------------------------")
     steps.placeGnome(5, jim)    // Should move it down
     steps.show()
-
+    println("------------------------")
     steps.placeGnome(5, jim)    // Should do nothing
     steps.show()
-
+    println("------------------------")
     check(steps.gnomeCount() == 1)
     check(steps.stepNumOfGnome(jim) == 5)
 
@@ -146,7 +147,7 @@ class Steps() {
         var i = 1
         for (step in steps) {
             if(step != null) {
-                println("$i. + $step")
+                println("$i. ${step.name}")
             }else{
                 println("$i.")
             }
@@ -175,7 +176,34 @@ class Steps() {
      * Place a given gnome on the given step (1-5)
      */
     fun placeGnome(step: Int, gnome: Gnome) {
-        steps.add(step, gnome)
+
+        for (step123 in steps){
+            println("k")
+            if (step123 == gnome) {
+                println("Bananenbrot")
+                removeGnome(gnome)
+                println("kaka")
+                show()
+
+
+            }
+            println("kak223a")
+
+
+        }
+        if(step -1 >= 0 && step <= 5) {
+            steps.removeAt(step-1)
+            steps.add(step-1, gnome)
+            if (STEPCOUNT > steps.size) {
+                var count: Int = STEPCOUNT - steps.size
+                while (count != 0) {
+                    steps.add(5-count, null)
+                    count--
+                }
+            }
+
+        }
+
 
     }
 
@@ -199,6 +227,15 @@ class Steps() {
      * or null if out of range or empty
      */
     fun gnomeOnStep(stepNum: Int): Gnome? {
+        var count: Int = 1
+        for (step in steps) {
+            if (stepNum == count) {
+                return step
+
+            }
+            count++
+
+        }
         return null
     }
 
@@ -206,6 +243,14 @@ class Steps() {
      * Clear any gnomes off the given step (1-5)
      */
     fun clearStep(step: Int) {
+        steps.removeAt(step-1)
+        if (STEPCOUNT > steps.size) {
+            var count: Int = STEPCOUNT - steps.size
+            while (count != 0) {
+                steps.add(5-count, null)
+                count--
+            }
+        }
 
     }
 
@@ -213,6 +258,14 @@ class Steps() {
      * Remove a given gnome from the steps
      */
     fun removeGnome(gnome: Gnome) {
+        steps.remove(gnome)
+        if (STEPCOUNT > steps.size) {
+            var count: Int = STEPCOUNT - steps.size
+            while (count != 0) {
+                steps.add(5-count, null)
+                count--
+            }
+        }
 
     }
 }
