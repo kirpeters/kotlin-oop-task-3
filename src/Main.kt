@@ -43,6 +43,8 @@ fun main() {
     val sam = Gnome("Sam")
     val amy = Gnome("Amy")
 
+
+
     println("------------------------")
     // Place gnomes on steps
     steps.placeGnome(1, jim)    // Should be fine
@@ -141,6 +143,17 @@ class Steps() {
      * etc.
      */
     fun show() {
+        var i = 1
+        for (step in steps) {
+            if(step != null) {
+                println("$i. + $step")
+            }else{
+                println("$i.")
+            }
+
+            i++
+        }
+
 
     }
 
@@ -148,13 +161,21 @@ class Steps() {
      * Return the number of gnomes on steps
      */
     fun gnomeCount(): Int {
-        return 0
+        var count = 0
+        for (step in steps) {
+            if (step != null) {
+                count += 1
+            }
+
+        }
+        return count
     }
 
     /**
      * Place a given gnome on the given step (1-5)
      */
     fun placeGnome(step: Int, gnome: Gnome) {
+        steps.add(step, gnome)
 
     }
 
@@ -163,6 +184,13 @@ class Steps() {
      * step number (1-5) if found, or 0 if not
      */
     fun stepNumOfGnome(gnome: Gnome): Int {
+        var count: Int = 1
+        for (step in steps){
+            if (step == gnome) {
+                return count
+            }
+            count++
+        }
         return 0
     }
 
