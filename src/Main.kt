@@ -175,37 +175,23 @@ class Steps() {
     /**
      * Place a given gnome on the given step (1-5)
      */
+ 
     fun placeGnome(step: Int, gnome: Gnome) {
 
-        for (step123 in steps){
-            println("k")
-            if (step123 == gnome) {
-                println("Bananenbrot")
-                removeGnome(gnome)
-                println("kaka")
-                show()
-
-
-            }
-            println("kak223a")
-
-
-        }
-        if(step -1 >= 0 && step <= 5) {
-            steps.removeAt(step-1)
-            steps.add(step-1, gnome)
-            if (STEPCOUNT > steps.size) {
-                var count: Int = STEPCOUNT - steps.size
-                while (count != 0) {
-                    steps.add(5-count, null)
-                    count--
-                }
-            }
-
+        if (steps.contains(gnome)) {
+            removeGnome(gnome)
         }
 
 
+        if (step in 1..STEPCOUNT) {
+            steps[step - 1] = gnome
+        }
+
+        while (steps.size < STEPCOUNT) {
+            steps.add(null)
+        }
     }
+
 
     /**
      * Find a given gnome on the steps. Return the
